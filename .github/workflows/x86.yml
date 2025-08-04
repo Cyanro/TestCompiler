@@ -86,8 +86,15 @@ jobs:
         make download -j8
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
-
-  
+        
+    - name: Free up disk space
+      run: |
+        sudo rm -rf /usr/share/dotnet \
+                    /opt/ghc \
+                    /usr/local/lib/android \
+                    /usr/lib/jvm
+        sudo apt clean
+        df -h
 
     - name: Compile the firmware
       id: compile
